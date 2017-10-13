@@ -1,0 +1,43 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script>
+var myApp = angular.module('myApp', []);
+myApp.factory('aProvider', function() {
+   alert("factory");
+});
+
+myApp.directive("test1", function() {
+    alert("directive setup"); //3
+    return {
+        compile: function() {alert("directive compile");}//4
+    }
+});
+
+myApp.directive("test2", function() {
+    return {
+        link: function() {alert("directive link");} //6
+    }
+});
+
+myApp.run(function() {
+    alert("app run"); //2
+});
+
+myApp.config( function() {
+    alert("app config"); //1
+});
+
+myApp.controller('myCtrl', function($scope) {
+    alert("app controller");//5
+});
+
+
+</script>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <div test1 test2> </div>
+</div>
+</body>
+</html>
